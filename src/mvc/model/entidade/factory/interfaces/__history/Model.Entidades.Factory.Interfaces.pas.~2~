@@ -1,0 +1,17 @@
+unit Model.Entidades.Factory.Interfaces;
+
+interface
+
+uses
+  Model.Entidade.Usuario.Interfaces,
+  Model.DAO.Entidades.Interfaces;
+
+type
+  iEntidadeFactory = Interface
+    ['{0B1D3897-0467-4B58-89A4-97ED1BA1DE52}']
+    function Usuario : iDAOEntidades<iEntidadeUsuario>;
+  End;
+
+implementation
+
+end.

@@ -1,0 +1,110 @@
+unit Model.Conexao.Configuracoes;
+
+interface
+
+uses
+  System.IniFiles,
+  System.SysUtils,
+  FMX.Forms,
+
+  Model.Conexao.Configuracoes.Interfaces;
+
+type
+  TConexaoConfiguracoes = class(TInterfacedObject, iConexaoConfiguracoes)
+    private
+      FArquivoIni : TIniFile;
+      FDiretorio  : String;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iConexaoConfiguracoes;
+
+      function ServerHost     : String;
+      function Port           : String;
+      function Database       : String;
+      function Password       : String;
+      function UserName       : String;
+      function DriverName     : String;
+      function LibraryName    : String;
+      function VendorLib      : String;
+      function ConnectionName : String;
+      function GetDriveFunc   : String;
+  end;
+
+
+implementation
+
+
+{ TConexaoConfiguracoes }
+
+constructor TConexaoConfiguracoes.Create;
+var
+  FFileName: String;
+begin
+  if FFileName = EmptyStr then
+    FFileName := ExtractFilePath(ParamStr(0)) + 'ConfiguracaoMySQL.ini';
+  FArquivoIni := TIniFile.Create(FFileName);
+end;
+
+destructor TConexaoConfiguracoes.Destroy;
+begin
+  FreeAndNil(FArquivoIni);
+  inherited;
+end;
+
+class function TConexaoConfiguracoes.New: iConexaoConfiguracoes;
+begin
+
+end;
+
+function TConexaoConfiguracoes.ConnectionName: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.Database: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.DriverName: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.GetDriveFunc: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.LibraryName: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.Password: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.Port: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.ServerHost: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.UserName: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.VendorLib: String;
+begin
+
+end;
+
+end.

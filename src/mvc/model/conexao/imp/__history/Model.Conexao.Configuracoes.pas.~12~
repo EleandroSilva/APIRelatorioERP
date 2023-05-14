@@ -1,0 +1,110 @@
+unit Model.Conexao.Configuracoes.MySQL;
+
+interface
+
+uses
+  System.IniFiles,
+  System.SysUtils,
+  FMX.Forms,
+
+  Model.Conexao.Configuracoes.Interfaces;
+
+type
+  TConexaoConfiguracoesMySQL = class(TInterfacedObject, iConexaoConfiguracoesMySQL)
+    private
+      FArquivoIni : TIniFile;
+      FDiretorio  : String;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iConexaoConfiguracoesMySQL;
+
+      function ServerHost     : String;
+      function Port           : String;
+      function Database       : String;
+      function Password       : String;
+      function UserName       : String;
+      function DriverName     : String;
+      function LibraryName    : String;
+      function VendorLib      : String;
+      function ConnectionName : String;
+      function GetDriveFunc   : String;
+  end;
+
+
+implementation
+
+
+{ TConexaoConfiguracoesMySQL }
+
+constructor TConexaoConfiguracoesMySQL.Create;
+var
+  FFileName: String;
+begin
+  if FFileName = EmptyStr then
+    FFileName := ExtractFilePath(ParamStr(0)) + 'ConfiguracaoMySQL.ini';
+  FArquivoIni := TIniFile.Create(FFileName);
+end;
+
+destructor TConexaoConfiguracoesMySQL.Destroy;
+begin
+  FreeAndNil(FArquivoIni);
+  inherited;
+end;
+
+class function TConexaoConfiguracoesMySQL.New: iConexaoConfiguracoesMySQL;
+begin
+  Result := Self.Create;
+end;
+
+function TConexaoConfiguracoesMySQL.ConnectionName: String;
+begin
+  Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'ConnectionName', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.Database: String;
+begin
+  Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'Database', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.DriverName: String;
+begin
+    Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'DriverName', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.GetDriveFunc: String;
+begin
+  Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'GetDriveFunc', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.LibraryName: String;
+begin
+  Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'LibraryName', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.Password: String;
+begin
+    Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'Password', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.Port: String;
+begin
+    Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'Port', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.ServerHost: String;
+begin
+    Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'ServerHost', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.UserName: String;
+begin
+  Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'UserName', Result);
+end;
+
+function TConexaoConfiguracoesMySQL.VendorLib: String;
+begin
+    Result := FArquivoIni.ReadString('ConfiguracaoMySQL', 'VendorLib', Result);
+end;
+
+end.

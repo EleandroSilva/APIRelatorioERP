@@ -1,0 +1,15 @@
+object ServiceBase: TServiceBase
+  OldCreateOrder = False
+  Height = 389
+  Width = 414
+  object Connection: TFDConnection
+    Params.Strings = (
+      'Database=erpbemoreweb'
+      'User_Name=bemoreweb'
+      'Password=bemoreweb'
+      'DriverID=MySQL')
+    LoginPrompt = False
+    Left = 176
+    Top = 152
+  end
+end

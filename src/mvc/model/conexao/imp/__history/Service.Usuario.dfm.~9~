@@ -1,0 +1,47 @@
+inherited ServiceUsuario: TServiceUsuario
+  inherited Connection: TFDConnection
+    Left = 120
+    Top = 160
+  end
+  inherited qryReport: TFDQuery
+    SQL.Strings = (
+      'select * from usuario')
+    Left = 120
+    object qryReportid: TLargeintField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryReportidempresa: TLargeintField
+      FieldName = 'idempresa'
+      Origin = 'idempresa'
+      Required = True
+    end
+    object qryReportnome: TStringField
+      FieldName = 'nome'
+      Origin = 'nome'
+      Required = True
+      Size = 120
+    end
+    object qryReportemail: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'email'
+      Origin = 'email'
+      Size = 100
+    end
+    object qryReportsenha: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'senha'
+      Origin = 'senha'
+    end
+  end
+  inherited FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Left = 56
+    Top = 16
+  end
+  inherited FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    Left = 56
+    Top = 64
+  end
+end

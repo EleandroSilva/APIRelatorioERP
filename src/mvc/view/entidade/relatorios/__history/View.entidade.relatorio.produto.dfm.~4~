@@ -1,0 +1,40 @@
+inherited RelatorioProduto: TRelatorioProduto
+  inherited Report: TRLReport
+    DataSource = dsReport
+    inherited BandaCabecalho: TRLBand
+      object rllIdUsuario: TRLLabel
+        Left = 2
+        Top = 0
+        Width = 67
+        Height = 16
+        Alignment = taRightJustify
+        Caption = 'Id Produto:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        Transparent = False
+      end
+      object rllNomeUsuario: TRLLabel
+        Left = 73
+        Top = 0
+        Width = 91
+        Height = 16
+        Caption = 'Nome Produto:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        Transparent = False
+      end
+    end
+  end
+  object dsReport: TDataSource
+    Left = 320
+    Top = 312
+  end
+end

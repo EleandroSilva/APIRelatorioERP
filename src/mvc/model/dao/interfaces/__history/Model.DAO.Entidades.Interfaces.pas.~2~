@@ -1,0 +1,15 @@
+unit Model.DAO.Entidades.Interfaces;
+
+interface
+
+type
+  iDAOEntidades<T> = interface
+    ['{5877DE66-1DA8-4961-8F50-4E877933D01B}']
+    function Inserir     : iDAOEntidades<T>;
+    function ListarTodos : iDAOEntidades<T>;
+    function This        : T;
+  end;
+
+implementation
+
+end.

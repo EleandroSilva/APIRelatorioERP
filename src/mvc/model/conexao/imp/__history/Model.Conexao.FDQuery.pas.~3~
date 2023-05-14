@@ -1,0 +1,114 @@
+unit Model.Conexao.FDQuery;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Types,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  Data.DB,
+
+  Model.Conexao.Interfaces;
+
+type
+  TModelConexaoFDQuery = class(TInterfacedObject, iQuery)
+    private
+      FDQuery : TFDQuery;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New   : iQuery;
+
+      function Params(aParam: String; Value: Variant) : iQuery; overload;
+      function Params(aIndex: Integer; Value: Variant) : iQuery;  overload;
+      function DataSet(DataSource: TDataSource) : iQuery; overload;
+      function DataSet   : TDataSet; overload;
+      function ExecSQL   : iQuery;
+      function Close     : iQuery;
+      function Open      : iQuery;
+      function SQL(Value : String) : iQuery;
+  end;
+
+implementation
+
+{ TModelConexaoFDQuery }
+
+constructor TModelConexaoFDQuery.Create;
+begin
+
+end;
+
+destructor TModelConexaoFDQuery.Destroy;
+begin
+
+  inherited;
+end;
+
+
+class function TModelConexaoFDQuery.New: iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.DataSet(DataSource: TDataSource): iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.DataSet: TDataSet;
+begin
+
+end;
+
+
+function TModelConexaoFDQuery.ExecSQL: iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.Open: iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.Params(aIndex: Integer; Value: Variant): iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.Params(aParam: String; Value: Variant): iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.SQL(Value: String): iQuery;
+begin
+
+end;
+
+function TModelConexaoFDQuery.Close: iQuery;
+begin
+
+end;
+
+end.

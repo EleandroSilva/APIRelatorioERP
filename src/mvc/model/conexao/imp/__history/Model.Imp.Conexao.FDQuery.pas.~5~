@@ -1,0 +1,102 @@
+unit Model.Imp.Conexao.FDQuery;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Types,
+
+  Data.DB,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  Model.Conexao.Query.Interfaces,
+  Model.Conexao.Interfaces,
+  Model.Imp.Conexao.Firedac.MySQL;
+
+type
+  TModelFDQuery = class(TInterfacedObject, iQuery)
+    private
+      FDQuery : TFDQuery;
+      FParent : iConexao;
+    public
+      constructor Create(Parent : iConexao);
+      destructor Destroy; override;
+      class function New(Parent : iConexao) : iQuery;
+
+      function DataSet(DataSource: TDataSource): iQuery; overload;
+      function DataSet: TDataSet; overload;
+      function SQL(Value: String): iQuery;
+      function Open : iQuery;
+    end;
+
+implementation
+
+{ TModelConexaoFDQuery }
+
+constructor TModelFDQuery.Create(Parent : iConexao);
+begin
+  FParent := Parent;
+  FDQuery := TFDQuery.Create(nil);
+
+  if not Assigned(FParent) then
+     FParent := TModelConexaoFiredacMySQL.New;
+
+  FDQuery.Connection := TFDConnection(FParent.Conexao);
+end;
+
+destructor TModelFDQuery.Destroy;
+begin
+  FreeAndNil(FDQuery);
+  inherited;
+end;
+
+class function TModelFDQuery.New(Parent : iConexao) : iQuery;
+begin
+  Result := Self.Create(Parent);
+end;
+
+function TModelFDQuery.DataSet(DataSource: TDataSource): iQuery;
+begin
+  Result := Self;
+  DataSource.DataSet := FDQuery;
+end;
+
+function TModelFDQuery.DataSet: TDataSet;
+begin
+  Result := FDQuery;
+end;
+
+function TModelFDQuery.SQL(Value: String): iQuery;
+begin
+  Result := Self;
+  FDQuery.SQL.Clear;
+  FDQuery.SQL.Add(Value);
+end;
+
+function TModelFDQuery.Open: iQuery;
+begin
+  Result := Self;
+  FDQuery.Open;
+end;
+
+
+end.

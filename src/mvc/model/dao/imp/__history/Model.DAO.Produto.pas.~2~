@@ -1,0 +1,48 @@
+unit Model.DAO.Produto;
+
+interface
+
+uses
+  Model.DAO.Produto.Interfaces;
+
+type
+  TDAProduto = class(TInterfacedObject, iDAOProduto)
+    private
+
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOProduto;
+
+      function Get : iDAOProduto;
+  end;
+
+
+implementation
+
+{ TDAProduto }
+
+constructor TDAProduto.Create;
+begin
+
+end;
+
+destructor TDAProduto.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TDAProduto.New: iDAOProduto;
+begin
+
+end;
+
+function TDAProduto.Get: iDAOProduto;
+begin
+
+end;
+
+
+
+end.

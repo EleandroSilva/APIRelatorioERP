@@ -1,0 +1,24 @@
+inherited RelatorioBaseSimples: TRelatorioBaseSimples
+  inherited Report: TRLReport
+    inherited RLBand2: TRLBand
+      Top = 137
+      ExplicitTop = 137
+    end
+    object BandaCabecalho: TRLBand
+      Left = 38
+      Top = 105
+      Width = 718
+      Height = 16
+      BandType = btHeader
+      Color = clBlack
+      ParentColor = False
+      Transparent = False
+    end
+    object BandaDados: TRLBand
+      Left = 38
+      Top = 121
+      Width = 718
+      Height = 16
+    end
+  end
+end

@@ -1,0 +1,16 @@
+unit Model.FDQuery.Interfaces;
+
+interface
+
+type
+  iQuery = interface
+    ['{B3DE099C-58F6-4C52-A269-7892DA028C39}']
+    function PrepareStatement(SQL : String) : iQuery;
+    function SetValue(Index : Integer; Value: Variant) : iQuery;
+    function ExecSQL   : iQuery;
+    function Open      : iQuery;
+  end;
+
+implementation
+
+end.

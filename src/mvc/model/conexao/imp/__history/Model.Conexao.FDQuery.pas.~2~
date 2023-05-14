@@ -1,0 +1,54 @@
+unit Model.Conexao.FDQuery;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Types,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  Data.DB,
+
+  Model.Conexao.Interfaces;
+
+type
+  TModelConexaoFDQuery = class(TInterfacedObject, iQuery)
+    private
+      FDQuery : TFDQuery;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New   : iQuery;
+
+      function Params(aParam: String; Value: Variant) : iQuery; overload;
+      function Params(aIndex: Integer; Value: Variant) : iQuery;  overload;
+      function DataSet(DataSource: TDataSource) : iQuery; overload;
+      function DataSet   : TDataSet; overload;
+      function ExecSQL   : iQuery;
+      function Close     : iQuery;
+      function Open      : iQuery;
+      function SQL(Value : String) : iQuery;
+  end;
+
+implementation
+
+end.

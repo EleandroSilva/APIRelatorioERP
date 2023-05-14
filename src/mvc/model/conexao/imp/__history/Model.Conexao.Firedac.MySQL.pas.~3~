@@ -1,0 +1,107 @@
+unit Model.Conexao.Firedac.MySQL;
+
+interface
+
+uses
+  Data.DB,
+  System.SysUtils,
+  System.JSON,
+
+  FireDAC.UI.Intf,
+  FireDAC.FMXUI.Wait,
+  FireDAC.Stan.Intf,
+  FireDAC.Comp.UI,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.MySQL,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  DataSetConverter4D.Helper,
+  DataSetConverter4D.Impl,
+
+  Model.Conexao.Interfaces,
+  Model.Conexao.Configuracoes.Interfaces,
+  Model.Conexao.Configuracoes.MySQL;
+
+type
+  TConexaoFiredacMySQL = class(TInterfacedObject, iConexao)
+    private
+      FConexaoFireDAC    : TFDConnection;
+      FDriverMySQL       : TFDPhysMySQLDriverLink;
+      FConfiguracaoMySQL : iConexaoConfiguracoesMySQL;
+
+      procedure LerArquivoIni;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iConexao;
+
+      function Conexao   : TObject;
+  end;
+
+
+implementation
+
+{ TConexaoFiredacMySQL }
+
+constructor TConexaoFiredacMySQL.Create;
+begin
+  FConexaoFireDAC    := TFDConnection.Create(nil);
+  FDriverMySQL       := TFDPhysMySQLDriverLink.Create(nil);
+  FConfiguracaoMySQL := TConexaoConfiguracoesMySQL.New;
+  LerArquivoIni;
+end;
+
+destructor TConexaoFiredacMySQL.Destroy;
+begin
+  FreeAndNil(FConexaoFireDAC);
+  FreeAndNil(FDriverMySQL);
+  inherited;
+end;
+
+class function TConexaoFiredacMySQL.New: iConexao;
+begin
+  Result := Self.Create;
+end;
+
+procedure TConexaoFiredacMySQL.LerArquivoIni;
+begin
+  try
+    FConexaoFireDAC    := TFDConnection.Create(nil);
+    FDriverMySQL       := TFDPhysMySQLDriverLink.Create(nil);
+    FConfiguracaoMySQL := TConexaoConfiguracoesMySQL.New;
+
+    FDriverMySQL.VendorLib   := FConfiguracaoMySQL.VendorLib;
+    FConexaoFireDAC.Params.DriverID := FConfiguracaoMySQL.DriverName;//MySQL
+    FConexaoFireDAC.Params.Database := FConfiguracaoMySQL.Database;//nome da base de dados
+    FConexaoFireDAC.Params.UserName := FConfiguracaoMySQL.UserName;// 'root';
+    FConexaoFireDAC.Params.Password := FConfiguracaoMySQL.Password;
+    FConexaoFireDAC.Params.Add('Port='+FConfiguracaoMySQL.Port);
+    FConexaoFireDAC.Params.Add('utf8mb4');
+    FConexaoFireDAC.Params.Add('Server='+FConfiguracaoMySQL.ServerHost);
+    FConexaoFireDAC.LoginPrompt     := False;
+    FConexaoFireDAC.Connected;
+  except
+    on e: Exception do
+    raise Exception.Create('Erro ao tentar se conectar com a base de dados: ' +e.Message);
+  end;
+end;
+
+
+function TConexaoFiredacMySQL.Conexao: TObject;
+begin
+  Result := FConexaoFireDAC;
+end;
+
+end.

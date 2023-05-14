@@ -1,0 +1,19 @@
+unit Model.Conexao.Query.Interfaces;
+
+interface
+
+uses
+   Data.DB;
+
+type
+  iQuery = interface
+    ['{B3DE099C-58F6-4C52-A269-7892DA028C39}']
+    function DataSet(DataSource: TDataSource): iQuery; overload;
+    function DataSet: TDataSet; overload;
+    function SQL(Value: String): iQuery;
+    function Open : iQuery;
+  end;
+
+implementation
+
+end.

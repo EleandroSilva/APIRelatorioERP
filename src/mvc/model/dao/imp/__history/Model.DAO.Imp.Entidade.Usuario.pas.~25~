@@ -1,0 +1,83 @@
+unit Model.DAO.Imp.Entidade.Usuario;
+
+interface
+
+uses
+  Data.DB,
+
+  Model.DAO.Entidades.Interfaces,
+  Model.Entidade.Usuario.Interfaces,
+  Model.Entidade.Usuario,
+  Model.Conexao.Query.Interfaces,
+  Model.Imp.Conexao.FDQuery,
+  Model.Conexao.Interfaces,
+  Model.Imp.Conexao.Firedac.MySQL;
+
+type
+  TDAOUsuario = class(TInterfacedObject, iDAOEntidades<iEntidadeUsuario>)
+    private
+      FUsuario  : iEntidadeUsuario;
+      FDConexao : iConexao;
+      FDQuery   : iQuery;
+      FDataSet  : TDataSet;
+
+      Const
+       FSQL=('select * from usuario');
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOEntidades<iEntidadeUsuario>;
+
+      function DataSet(DataSource: TDataSource): iDAOEntidades<iEntidadeUsuario>; overload;
+      function DataSet: TDataSet; overload;
+      function ListarTodos : iDAOEntidades<iEntidadeUsuario>;
+
+      function This        : iEntidadeUsuario;
+  end;
+
+implementation
+
+{ TDAOUsuario }
+
+constructor TDAOUsuario.Create;
+begin
+  FUsuario  := TUsuario.Create(Self);
+  FDConexao := TModelConexaoFiredacMySQL.New;
+  FDQuery   := TModelFDQuery.New(FDConexao);
+end;
+
+function TDAOUsuario.DataSet(DataSource: TDataSource): iDAOEntidades<iEntidadeUsuario>;
+begin
+
+end;
+
+function TDAOUsuario.DataSet: TDataSet;
+begin
+
+end;
+
+destructor TDAOUsuario.Destroy;
+begin
+  inherited;
+end;
+
+class function TDAOUsuario.New: iDAOEntidades<iEntidadeUsuario>;
+begin
+  Result := Self.Create;
+end;
+
+function TDAOUsuario.ListarTodos: iDAOEntidades<iEntidadeUsuario>;
+begin
+  Result := Self;
+  FDQuery
+        .SQL(FSQL)
+        .Open
+        .DataSet;
+end;
+
+function TDAOUsuario.This: iEntidadeUsuario;
+begin
+  Result := FUsuario;
+end;
+
+end.

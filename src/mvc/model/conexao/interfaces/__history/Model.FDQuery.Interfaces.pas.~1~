@@ -1,0 +1,7 @@
+unit Model.FDQuery.Interfaces;
+
+interface
+
+implementation
+
+end.

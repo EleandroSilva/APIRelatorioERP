@@ -1,0 +1,9 @@
+inherited RelatorioProduto: TRelatorioProduto
+  inherited Report: TRLReport
+    DataSource = dsReport
+  end
+  object dsReport: TDataSource
+    Left = 320
+    Top = 312
+  end
+end

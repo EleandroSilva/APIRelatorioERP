@@ -1,0 +1,133 @@
+unit Model.Conexao.FDQuery;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Types,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  Data.DB,
+
+  Model.Conexao.Interfaces;
+
+type
+  TModelConexaoFDQuery = class(TInterfacedObject, iQuery)
+    private
+      FDQuery : TFDQuery;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New   : iQuery;
+
+      function Params(aParam: String; Value: Variant) : iQuery; overload;
+      function Params(aParam : String) : Variant; overload;
+      function Params(aIndex: Integer; Value: Variant) : iQuery;  overload;
+      function Params(aIndex : Integer) : Variant; overload;
+      function DataSet(DataSource: TDataSource) : iQuery; overload;
+      function DataSet   : TDataSet; overload;
+      function ExecSQL   : iQuery;
+      function Close     : iQuery;
+      function Open      : iQuery;
+      function SQL(Value : String) : iQuery;
+  end;
+
+implementation
+
+{ TModelConexaoFDQuery }
+
+constructor TModelConexaoFDQuery.Create;
+begin
+  FDQuery := TFDQuery.Create(nil);
+end;
+
+destructor TModelConexaoFDQuery.Destroy;
+begin
+  FreeAndNil(FDQuery);
+  inherited;
+end;
+
+
+class function TModelConexaoFDQuery.New: iQuery;
+begin
+  Result := Self.Create;
+end;
+
+function TModelConexaoFDQuery.DataSet(DataSource: TDataSource): iQuery;
+begin
+  Result := Self;
+  DataSource.DataSet := FDQuery;
+end;
+
+function TModelConexaoFDQuery.DataSet: TDataSet;
+begin
+  Result := FDQuery;
+end;
+
+function TModelConexaoFDQuery.ExecSQL: iQuery;
+begin
+  Result := Self;
+  FDQuery.ExecSQL;
+end;
+
+function TModelConexaoFDQuery.Open: iQuery;
+begin
+  Result := Self;
+  FDQuery.Open;
+end;
+
+function TModelConexaoFDQuery.Params(aParam: String; Value: Variant): iQuery;
+begin
+  Result := Self;
+  FDQuery.ParamByName(aParam).Value := Value;
+end;
+
+function TModelConexaoFDQuery.Params(aParam: String): Variant;
+begin
+  Result := FDQuery.ParamByName(aParam).Value;
+end;
+
+function TModelConexaoFDQuery.Params(aIndex: Integer; Value: Variant): iQuery;
+begin
+  Result := Self;
+  FDQuery.ParamByName(aIndex).Value := Value;
+end;
+
+function TModelConexaoFDQuery.Params(aIndex: Integer): Variant;
+begin
+  Result := FDQuery.ParamByName(aIndex).Value;
+end;
+
+function TModelConexaoFDQuery.SQL(Value: String): iQuery;
+begin
+  Result := Self;
+  FDQuery.SQL.Clear;
+  FDQuery.SQL.Add(Value);
+end;
+
+function TModelConexaoFDQuery.Close: iQuery;
+begin
+  Result := Self;
+  FDQuery.Close;
+end;
+
+end.

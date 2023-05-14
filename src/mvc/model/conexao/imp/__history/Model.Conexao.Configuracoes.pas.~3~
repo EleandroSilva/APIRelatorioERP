@@ -1,0 +1,100 @@
+unit Model.Conexao.Configuracoes;
+
+interface
+
+uses
+  System.IniFiles,
+  System.SysUtils,
+  FMX.Forms,
+
+  Model.Conexao.Configuracoes.Interfaces;
+
+type
+  TConexaoConfiguracoes = class(TInterfacedObject, iConexaoConfiguracoes)
+    private
+      FArquivoIni : TIniFile;
+      FDiretorio  : String;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iConexaoConfiguracoes;
+
+      function ServerHost     : String;
+      function DriverName     : String;
+      function Database       : String;
+      function UserName       : String;
+      function Password       : String;
+      function Port           : Integer;
+      function LibraryName    : String;
+      function VendorHome     : String;
+      function Utf8mb4        : String;
+  end;
+
+
+implementation
+
+{ TConexaoConfiguracoes }
+
+constructor TConexaoConfiguracoes.Create;
+begin
+  FDiretorio  := ExtractFilePath(ParamStr(0)) + 'ConfiguracaoPostgreSQL.ini';
+  FArquivoIni := TIniFile.Create(FDiretorio);
+end;
+
+destructor TConexaoConfiguracoes.Destroy;
+begin
+  FreeAndNil(FArquivoIni);
+  inherited;
+end;
+
+function TConexaoConfiguracoes.Database: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.DriverName: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.LibraryName: String;
+begin
+
+end;
+
+class function TConexaoConfiguracoes.New: iConexaoConfiguracoes;
+begin
+
+end;
+
+function TConexaoConfiguracoes.Password: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.Port: Integer;
+begin
+
+end;
+
+function TConexaoConfiguracoes.ServerHost: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.UserName: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.Utf8mb4: String;
+begin
+
+end;
+
+function TConexaoConfiguracoes.VendorHome: String;
+begin
+
+end;
+
+end.

@@ -1,0 +1,51 @@
+unit Model.Imp.Entidades.Factory;
+
+interface
+
+uses
+  Model.Entidades.Factory.Interfaces,
+  Model.Entidade.Usuario,
+  Model.DAO.Entidades.Interfaces;
+
+type
+  TModelEntidadeFactory = class(TInterfacedObject, iModelEntidadeFactory)
+  private
+    FUsuario : iModelEntidadeFactory;
+    FParent  : iDAOEntidade;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iModelEntidadeFactory;
+
+    function Usuario: iModelEntidadeFactory;
+  end;
+
+implementation
+
+{ TModelEntidadeFactory }
+
+constructor TModelEntidadeFactory.Create;
+begin
+  //
+end;
+
+destructor TModelEntidadeFactory.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TModelEntidadeFactory.New: iModelEntidadeFactory;
+begin
+  Result := Self.Create;
+end;
+
+function TModelEntidadeFactory.Usuario: iModelEntidadeFactory;
+begin
+  if not Assigned(FUsuario) then
+    FUsuario := TUsuario.New();
+
+  Result := FUsuario;
+end;
+
+end.

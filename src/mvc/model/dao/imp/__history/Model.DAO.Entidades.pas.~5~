@@ -1,0 +1,50 @@
+unit Model.DAO.Entidades;
+
+interface
+
+uses
+  Model.Conexao.Interfaces,
+  Model.DAO.Entidades.Interfaces,
+  Model.Entidade.Produto.Interfaces,
+  Model.Entidade.Produto,
+  Model.Conexao.Firedac.MySQL;
+
+type
+  TDAOProduto = class(TInterfacedObject, iDAOEntidades<iEntidadeProduto>)
+    private
+      FConexao : iConexao;
+      FProduto : iEntidadeProduto;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOEntidades<iEntidadeProduto>;
+
+      function Inserir     : iDAOEntidades<iEntidadeProduto>;
+      function ListarTodos : iDAOEntidades<iEntidadeProduto>;
+      function This        : iEntidadeProduto;
+  end;
+
+
+implementation
+
+{ TDAProduto }
+
+constructor TDAOProduto.Create;
+begin
+  FProduto := TProduto.New(Self);
+  FConexao := TConexaoFiredacMySQL.New;
+end;
+
+destructor TDAOProduto.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TDAOProduto.New: iDAOEntidades<iEntidadeProduto>;
+begin
+  Result := Self.Create;
+end;
+
+
+end.

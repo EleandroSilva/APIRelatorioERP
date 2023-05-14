@@ -1,0 +1,69 @@
+unit View.entidade.relatorio.base;
+
+interface
+
+uses
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  RLReport,
+  RLFilters,
+  RLPDFFilter,
+  Horse.OctetStream;
+
+type
+  TRelatorioBase = class(TFrame)
+    Report: TRLReport;
+    RLBand1: TRLBand;
+    RLBand2: TRLBand;
+    RLLabel1: TRLLabel;
+    RLSystemInfo1: TRLSystemInfo;
+    RLSystemInfo2: TRLSystemInfo;
+    RLPDFFilter: TRLPDFFilter;
+  private
+    function GetRelatorioFilePath : String;
+    function GetRelatorioNome : String;
+    procedure SalvarRelatorioToFile;
+  public
+    function GetRelatorio : TFileReturn;
+  end;
+
+implementation
+
+{$R *.dfm}
+
+{ TRelatorioBase }
+
+function TRelatorioBase.GetRelatorio: TFileReturn;
+begin
+  SalvarRelatorioToFile;
+  Result := TFileReturn.Create(GetRelatorioNome+'.pdf');
+end;
+
+function TRelatorioBase.GetRelatorioFilePath: String;
+begin
+  Result :='';
+end;
+
+function TRelatorioBase.GetRelatorioNome: String;
+begin
+  Result :='';
+end;
+
+procedure TRelatorioBase.SalvarRelatorioToFile;
+begin
+  RLPDFFilter.ShowProgress := False;
+  Report.PrintDialog := False;
+  Report.ShowProgress := False;
+
+  Report.Prepare;
+  Report.SaveToFile(GetRelatorioFilePath);
+end;
+
+end.

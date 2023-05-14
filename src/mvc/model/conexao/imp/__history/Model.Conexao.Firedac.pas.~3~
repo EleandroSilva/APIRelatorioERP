@@ -1,0 +1,61 @@
+unit Model.Conexao.Firedac;
+
+interface
+
+uses
+  Data.DB,
+  System.SysUtils,
+  System.JSON,
+
+  FireDAC.UI.Intf,
+  FireDAC.FMXUI.Wait,
+  FireDAC.Stan.Intf,
+  FireDAC.Comp.UI,
+
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.Phys.PG,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Param,
+  FireDAC.DatS,
+  FireDAC.DApt.Intf,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+
+  DataSetConverter4D.Helper,
+  DataSetConverter4D.Impl,
+
+  Model.Conexao.Interfaces,
+  Model.Conexao.Configuracoes.Interfaces,
+  Model.Conexao.Configuracoes;
+
+type
+  TConexaoFiredac = class(TInterfacedObject, iConexao)
+    private
+      FConexao          : TFDConnection;
+      //trocar por mysql FDriverPostgreSQL : TFDPhysPgDriverLink;
+      FConfiguracao     : iConexaoConfiguracoes;
+
+      procedure LerArquivoIni;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iConexao;
+
+      function Conexao   : TObject;
+  end;
+
+
+implementation
+
+
+
+
+
+end.

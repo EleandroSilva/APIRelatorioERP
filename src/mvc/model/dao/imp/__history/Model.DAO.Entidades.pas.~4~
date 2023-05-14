@@ -1,0 +1,46 @@
+unit Model.DAO.Entidades;
+
+interface
+
+uses
+  Model.Conexao.Interfaces,
+  Model.DAO.Entidades.Interfaces,
+  Model.Entidade.Produto.Interfaces;
+
+type
+  TDAOProduto = class(TInterfacedObject, iDAOEntidades<iEntidadeProduto>)
+    private
+      FConexao : iConexao;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOEntidades<iEntidadeProduto>;
+
+      function Inserir     : iDAOEntidades<iEntidadeProduto>;
+      function ListarTodos : iDAOEntidades<iEntidadeProduto>;
+      function This        : iEntidadeProduto;
+  end;
+
+
+implementation
+
+{ TDAProduto }
+
+constructor TDAOProduto.Create;
+begin
+
+end;
+
+destructor TDAOProduto.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TDAOProduto.New: iDAOEntidades<iEntidadeProduto>;
+begin
+  Result := Self.Create;
+end;
+
+
+end.

@@ -1,0 +1,21 @@
+unit Model.Conexao.Configuracoes.Interfaces;
+
+interface
+
+type
+  iConexaoConfiguracoes = interface
+    ['{1775460D-EE6B-4579-B485-EAF957ABA50F}']
+    function ServerHost     : String;
+    function DriverName     : String;
+    function Database       : String;
+    function UserName       : String;
+    function Password       : String;
+    function Port           : Integer;
+    function LibraryName    : String;
+    function VendorHome     : String;
+    function Utf8mb4        : String;
+  end;
+
+implementation
+
+end.

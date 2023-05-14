@@ -1,0 +1,19 @@
+unit Model.Entidade.Produto;
+
+interface
+uses
+  Model.Entidade.Produto.Interfaces,
+  Model.DAO.Entidades.Interfaces;
+
+type
+  TProduto = class(TInterfacedObject, iEntidadeProduto)
+    private
+    public
+      constructor Create(Parent : iDAOEntidades<iEntidadeProduto>);
+      destructor Destroy; override;
+      class function New(Parent : iDAOEntidades<iEntidadeProduto>) :iEntidadeProduto;
+  end;
+
+implementation
+
+end.

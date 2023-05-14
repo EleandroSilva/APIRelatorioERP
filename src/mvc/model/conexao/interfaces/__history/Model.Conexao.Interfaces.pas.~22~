@@ -1,0 +1,19 @@
+unit Model.Conexao.Interfaces;
+
+interface
+
+uses
+  Data.DB;
+
+type
+  iConexao = interface
+    ['{823AF268-3D7B-4799-8271-61C9904AF4CF}']
+    function Conexao          : TObject;
+    function StartTransaction : iConexao;
+    function Commit           : iConexao;
+    function Rollback         : iConexao;
+  end;
+
+implementation
+
+end.

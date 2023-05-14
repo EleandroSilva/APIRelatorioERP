@@ -1,0 +1,49 @@
+unit Model.Controller;
+
+interface
+
+uses
+  System.SysUtils,
+
+  Model.Controller.Interfaces,
+  Model.Entidades.Factory.Interfaces,
+  Model.Imp.Entidades.Factory;
+
+Type
+  TController = class(TInterfacedObject, iController)
+  private
+    FEntidadesFactory: iModelEntidadeFactory;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iController;
+
+    function Entidades: iModelEntidadeFactory;
+  end;
+
+implementation
+
+{ TController }
+
+constructor TController.Create;
+begin
+  FEntidadesFactory := TModelEntidadeFactory.New;
+end;
+
+destructor TController.Destroy;
+begin
+  //
+  inherited;
+end;
+
+class function TController.New: iController;
+begin
+  Result := Self.Create;
+end;
+
+function TController.Entidades: iModelEntidadeFactory;
+begin
+  Result := FEntidadesFactory;
+end;
+
+end.

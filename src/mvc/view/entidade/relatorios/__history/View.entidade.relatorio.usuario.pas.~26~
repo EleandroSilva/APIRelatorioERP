@@ -1,0 +1,53 @@
+unit View.entidade.relatorio.usuario;
+
+interface
+
+uses
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Data.DB,
+  RLReport,
+  RLFilters,
+  RLPDFFilter,
+
+  View.entidade.relatorio.base.simples;
+
+type
+  TRelatorioUsuario = class(TRelatorioBaseSimples)
+    rllIdUsuario: TRLLabel;
+    rllNomeUsuario: TRLLabel;
+    rbIdUsuario: TRLDBText;
+    dbNomeUsuario: TRLDBText;
+    dsReport: TDataSource;
+  private
+  protected
+    function GetReportName: String; override;
+    procedure CriarService; override;
+  end;
+
+
+implementation
+
+{$R *.dfm}
+
+{ TRelatorioUsuario }
+
+procedure TRelatorioUsuario.CriarService;
+begin
+  inherited;
+  //Service := TServiceUsuario.Create(Self);
+end;
+
+function TRelatorioUsuario.GetReportName: String;
+begin
+  Result :='usuarios';
+end;
+
+end.

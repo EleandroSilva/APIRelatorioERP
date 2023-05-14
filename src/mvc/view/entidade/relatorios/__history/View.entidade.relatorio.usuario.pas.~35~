@@ -1,0 +1,77 @@
+unit View.entidade.relatorio.usuario;
+
+interface
+
+uses
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Data.DB,
+  RLReport,
+  RLFilters,
+  RLPDFFilter,
+
+  View.entidade.relatorio.base.simples,
+  Model.Controller.Interfaces;
+
+type
+  TRelatorioUsuario = class(TRelatorioBaseSimples)
+    rllIdUsuario: TRLLabel;
+    rllNomeUsuario: TRLLabel;
+    rbIdUsuario: TRLDBText;
+    dbNomeUsuario: TRLDBText;
+    dsReport: TDataSource;
+    procedure ReportBeforePrint(Sender: TObject; var PrintIt: Boolean);
+  private
+    FController : iController;
+
+  protected
+    function GetReportName: String; override;
+    procedure CriarService; override;
+
+
+  end;
+
+
+implementation
+
+uses
+  Model.Imp.Controller;
+
+{$R *.dfm}
+
+{ TRelatorioUsuario }
+
+procedure TRelatorioUsuario.CriarService;
+begin
+  inherited;
+  dsReport.DataSet.Close;
+end;
+
+function TRelatorioUsuario.GetReportName: String;
+begin
+  Result :='usuarios';
+end;
+
+procedure TRelatorioUsuario.ReportBeforePrint(Sender: TObject;
+  var PrintIt: Boolean);
+begin
+  inherited;
+
+  FController := TController.New;
+
+  FController.
+      Entidades.
+          Usuario.
+              &End.
+            ListarTodos.
+            DataSet(dsReport);
+end;
+
+end.

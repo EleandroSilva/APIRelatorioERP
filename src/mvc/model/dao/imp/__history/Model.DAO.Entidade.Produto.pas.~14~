@@ -1,0 +1,104 @@
+unit Model.DAO.Entidade.Produto;
+
+interface
+
+uses
+  Data.DB,
+
+  System.SysUtils,
+
+  Model.Conexao.Interfaces,
+  Model.DAO.Entidades.Interfaces,
+  Model.Entidade.Produto.Interfaces,
+  Model.Entidade.Produto,
+  Model.Imp.Conexao.Firedac.MySQL,
+  Model.Imp.FDQuery;
+
+type
+  TDAOProduto = class(TInterfacedObject, iDAOEntidades<iEntidadeProduto>)
+    private
+      FDConexao : iConexao;
+      FDQuery   : iQuery;
+      FProduto  : iEntidadeProduto;
+      FSQL      : String;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New : iDAOEntidades<iEntidadeProduto>;
+
+      function Inserir     : iDAOEntidades<iEntidadeProduto>;
+      function ListarTodos : iDAOEntidades<iEntidadeProduto>;
+      function DataSet(DataSource : TDataSource): iDAOEntidades<iEntidadeProduto>; overload;
+      function DataSet: TDataSet; overload;
+
+      function This        : iEntidadeProduto;
+  end;
+
+
+implementation
+
+{ TDAProduto }
+
+constructor TDAOProduto.Create;
+begin
+  FProduto  := TProduto.New(Self);
+  FDConexao := TModelConexaoFiredacMySQL.New;
+  FDQuery   := TModelFDQuery.New;
+end;
+
+destructor TDAOProduto.Destroy;
+begin
+  //FreeAndNil(FProduto);
+  //FreeAndNil(FDConexao);
+  //FreeAndNil(FDQuery);
+  inherited;
+end;
+
+class function TDAOProduto.New: iDAOEntidades<iEntidadeProduto>;
+begin
+  Result := Self.Create;
+end;
+
+function TDAOProduto.DataSet(DataSource: TDataSource): iDAOEntidades<iEntidadeProduto>;
+begin
+
+end;
+
+function TDAOProduto.DataSet: TDataSet;
+begin
+  
+end;
+
+function TDAOProduto.Inserir: iDAOEntidades<iEntidadeProduto>;
+begin
+  Result := Self;
+  FSQL :='';
+  FDConexao.StartTransaction;
+  try
+    FSQL :='insert into produto values (?, ?)';
+    FDQuery.PrepareStatement(FSQL);
+    FDQuery.SetValue(0, FProduto.ID);
+    FDQuery.SetValue(1, FProduto.Nome);
+    FDQuery.ExecSQL;
+    FDConexao.Commit;
+  except
+    FDConexao.Rollback;
+    raise Exception.Create('Erro ao tentar gravar o registro.');
+  end;
+end;
+
+
+function TDAOProduto.ListarTodos: iDAOEntidades<iEntidadeProduto>;
+begin
+  Result := Self;
+  FSQL :='';
+  FSQL :='select * from produto';
+  FDQuery.Open
+end;
+
+function TDAOProduto.This: iEntidadeProduto;
+begin
+  Result := FProduto;
+end;
+
+end.

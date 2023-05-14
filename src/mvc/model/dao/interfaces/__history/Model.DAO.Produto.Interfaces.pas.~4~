@@ -1,0 +1,15 @@
+unit Model.DAO.Produto.Interfaces;
+
+interface
+
+type
+  iDAOProduto = interface
+    ['{5877DE66-1DA8-4961-8F50-4E877933D01B}']
+    function Get : iDAOProduto;
+
+    function &End : iDAOProduto;
+  end;
+
+implementation
+
+end.

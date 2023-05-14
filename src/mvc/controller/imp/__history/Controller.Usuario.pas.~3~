@@ -1,0 +1,24 @@
+unit Controller.Usuario;
+
+interface
+
+uses
+  System.Classes,
+
+  Horse,
+  Horse.OctetStream,
+
+  View.entidade.relatorio.usuario;
+
+procedure Registry;
+
+implementation
+
+procedure DoReportUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+
+procedure Registry;
+begin
+  THorse.Get('/usuarios', DoReportUsuario);
+end;
+
+end.
